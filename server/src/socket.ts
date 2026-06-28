@@ -16,7 +16,7 @@ export function setupSocket(io: Server): void {
         socket.on("join-room", (roomId: string, userId: string) => {
             socket.join(roomId);
             console.log(`👤 User ${userId} (${socket.id}) joined room: ${roomId}`);
-            
+
             // Notify other clients in the room that a new user has joined
             socket.to(roomId).emit("user-joined", { userId, socketId: socket.id });
         });

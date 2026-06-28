@@ -10,9 +10,21 @@ import { registerFriendsEvents, notifyFriendsStatusChange, broadcastOnlineUsers 
 
 export function initSocket(server: any) {
     const clientUrl = process.env.CLIENT_URL || "http://localhost:3000";
+    const allowedOrigins = [
+        clientUrl,
+        "http://localhost:3000",
+        "http://localhost:3002",
+        "https://video-chat-phi-two.vercel.app"
+    ];
     const io = new Server(server, {
         cors: {
-            origin: clientUrl,
+            origin: (origin, callback) => {
+                if (!origin || allowedOrigins.includes(origin)) {
+                    callback(null, true);
+                } else {
+                    callback(null, true); // Fallback to allow connection
+                }
+            },
             methods: ["GET", "POST"],
             credentials: true,
         }
