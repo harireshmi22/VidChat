@@ -1,4 +1,4 @@
-const BASE_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:3001";
+const BASE_URL = process.env.NEXT_PUBLIC_API_URL || "https://backend-server-chat.onrender.com";
 
 interface RequestOptions extends RequestInit {
   params?: Record<string, string>;
