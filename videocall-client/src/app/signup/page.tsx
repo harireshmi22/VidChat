@@ -39,7 +39,8 @@ function SignupContent() {
     setError("");
 
     try {
-      const response = await fetch("http://localhost:3001/api/signup", {
+      const BASE_URL = process.env.NEXT_PUBLIC_API_URL || "https://backend-server-chat.onrender.com";
+      const response = await fetch(`${BASE_URL}/api/signup`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json"

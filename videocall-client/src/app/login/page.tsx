@@ -18,13 +18,15 @@ export default function Login() {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
 
+  
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
     setError("");
 
     try {
-      const response = await fetch("http://localhost:3001/api/login", {
+      const BASE_URL = process.env.NEXT_PUBLIC_API_URL || "https://backend-server-chat.onrender.com";
+      const response = await fetch(`${BASE_URL}/api/login`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json"

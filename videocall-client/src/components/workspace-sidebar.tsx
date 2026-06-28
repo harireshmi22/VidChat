@@ -221,7 +221,8 @@ export function WorkspaceSidebar({ activeChannel, activeType, mobileOpen = false
     if (!trimmedName) return;
 
     try {
-      const response = await fetch("http://localhost:3001/api/user/update", {
+      const BASE_URL = process.env.NEXT_PUBLIC_API_URL || "https://backend-server-chat.onrender.com";
+      const response = await fetch(`${BASE_URL}/api/user/update`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
