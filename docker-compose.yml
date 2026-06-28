@@ -9,7 +9,7 @@ services:
       - "3001:3001"
     environment:
       - PORT=3001
-      - CLIENT_URL=http://localhost:3000
+      - CLIENT_URL=http://localhost:3002
     restart: always
 
   client:
@@ -17,7 +17,7 @@ services:
       context: ./videocall-client
       dockerfile: Dockerfile
     ports:
-      - "3000:3000"
+      - "3002:3000"
     environment:
       - PORT=3000
       - HOSTNAME=0.0.0.0
