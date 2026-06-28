@@ -1,0 +1,59 @@
+# Future Roadmap: Advanced Features for AuraCall
+
+This document provides a detailed list of feature extensions and architectural enhancements that can be integrated into AuraCall to match Discord's functionality.
+
+---
+
+## 1. Database Persistence Layer
+
+### Proposed Stack: Prisma + PostgreSQL (or MongoDB)
+
+- **Problem**: In-memory stores wipe all friend lists, histories, and requests on server restarts.
+- **Solution**: Set up a persistent database.
+- **Key Tables**:
+  - `User`: ID, username, password hash, avatar image, status, createdAt.
+  - `Friendship`: User1, User2, status (`PENDING` | `ACCEPTED`), connectedAt.
+  - `DirectMessage`: Sender, Receiver, text content, readState, timestamp.
+
+---
+
+## 2. Advanced Communication Controls
+
+### Screen Sharing
+
+- **Implementation**: Use browser `navigator.mediaDevices.getDisplayMedia` to query screen tracks.
+- **Handoff**: Add the screen share track to the existing WebRTC `RTCPeerConnection` instance alongside the webcam track, allowing dual layouts (webcam + shared screen).
+
+### Interactive Whiteboard
+
+- **Implementation**: HTML5 `<canvas>` synced over WebSockets.
+- **Workflow**: Create a split view in voice lobbies where users can draw collaboratively during a call, syncing line strokes in real-time.
+
+---
+
+## 3. Real-time Background Notifications
+
+### Web Push Notifications (Service Workers)
+
+- **Problem**: Users won't receive call alerts or messages if the AuraCall tab is closed or in the background.
+- **Solution**: Set up a push subscription endpoint on the server. When a DM or call event occurs, emit a secure push payload to the Web Push API, triggering desktop notifications.
+
+---
+
+## 4. File Sharing & Media Embedding
+
+### Cloud Store (S3 / Firebase)
+
+- Add a file attachment button next to the chat text bar.
+- On file select, request a pre-signed URL from the server, upload the asset directly to S3 or Firebase Storage, and send a message with the URL.
+- Render interactive preview boxes inside the chat log (e.g. image previews, PDF viewers, or audio player controllers).
+
+---
+
+## 5. Slash Commands & Chat Utility
+
+- **GIF Integration**: Add a Giphy API picker modal.
+- **Slash Commands**:
+  - `/poll "Question" "OptA" "OptB"`: Creates an interactive reaction card in the chat channel.
+  - `/mute`: Mutes your local microphone immediately.
+  - `/call`: Triggers a voice call command to the active user.
