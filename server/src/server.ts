@@ -17,7 +17,7 @@ const allowedOrigins = [
     "http://localhost:3000",
     "https://localhost:3001",
     "http://localhost:3002",
-    "https://video-chat-phi-two.vercel.app"
+    "https://vid-chat-beryl.vercel.app"
 ];
 
 // Express Middlewares
